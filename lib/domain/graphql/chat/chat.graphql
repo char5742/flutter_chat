@@ -35,16 +35,6 @@ mutation ChatDelete($chatKey: String!) {
 
 subscription ChatSend {
   chatSend {
-    key
-    data
-    created
-    sender {
-      key
-      name
-    }
-    reciever {
-      key
-      name
-    }
+    ...ChatSummary
   }
 }

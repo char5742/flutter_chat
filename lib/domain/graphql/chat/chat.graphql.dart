@@ -1697,11 +1697,11 @@ class Subscription$ChatSend {
     return Subscription$ChatSend(
         chatSend: l$chatSend == null
             ? null
-            : Subscription$ChatSend$chatSend.fromJson(
+            : Fragment$ChatSummary.fromJson(
                 (l$chatSend as Map<String, dynamic>)));
   }
 
-  final Subscription$ChatSend$chatSend? chatSend;
+  final Fragment$ChatSummary? chatSend;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
@@ -1746,8 +1746,8 @@ abstract class CopyWith$Subscription$ChatSend<TRes> {
   factory CopyWith$Subscription$ChatSend.stub(TRes res) =
       _CopyWithStubImpl$Subscription$ChatSend;
 
-  TRes call({Subscription$ChatSend$chatSend? chatSend});
-  CopyWith$Subscription$ChatSend$chatSend<TRes> get chatSend;
+  TRes call({Fragment$ChatSummary? chatSend});
+  CopyWith$Fragment$ChatSummary<TRes> get chatSend;
 }
 
 class _CopyWithImpl$Subscription$ChatSend<TRes>
@@ -1763,12 +1763,12 @@ class _CopyWithImpl$Subscription$ChatSend<TRes>
   TRes call({Object? chatSend = _undefined}) => _then(Subscription$ChatSend(
       chatSend: chatSend == _undefined
           ? _instance.chatSend
-          : (chatSend as Subscription$ChatSend$chatSend?)));
-  CopyWith$Subscription$ChatSend$chatSend<TRes> get chatSend {
+          : (chatSend as Fragment$ChatSummary?)));
+  CopyWith$Fragment$ChatSummary<TRes> get chatSend {
     final local$chatSend = _instance.chatSend;
     return local$chatSend == null
-        ? CopyWith$Subscription$ChatSend$chatSend.stub(_then(_instance))
-        : CopyWith$Subscription$ChatSend$chatSend(
+        ? CopyWith$Fragment$ChatSummary.stub(_then(_instance))
+        : CopyWith$Fragment$ChatSummary(
             local$chatSend, (e) => call(chatSend: e));
   }
 }
@@ -1779,9 +1779,9 @@ class _CopyWithStubImpl$Subscription$ChatSend<TRes>
 
   TRes _res;
 
-  call({Subscription$ChatSend$chatSend? chatSend}) => _res;
-  CopyWith$Subscription$ChatSend$chatSend<TRes> get chatSend =>
-      CopyWith$Subscription$ChatSend$chatSend.stub(_res);
+  call({Fragment$ChatSummary? chatSend}) => _res;
+  CopyWith$Fragment$ChatSummary<TRes> get chatSend =>
+      CopyWith$Fragment$ChatSummary.stub(_res);
 }
 
 const documentNodeSubscriptionChatSend = DocumentNode(definitions: [
@@ -1797,74 +1797,8 @@ const documentNodeSubscriptionChatSend = DocumentNode(definitions: [
             arguments: [],
             directives: [],
             selectionSet: SelectionSetNode(selections: [
-              FieldNode(
-                  name: NameNode(value: 'key'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null),
-              FieldNode(
-                  name: NameNode(value: 'data'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null),
-              FieldNode(
-                  name: NameNode(value: 'created'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null),
-              FieldNode(
-                  name: NameNode(value: 'sender'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: SelectionSetNode(selections: [
-                    FieldNode(
-                        name: NameNode(value: 'key'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null),
-                    FieldNode(
-                        name: NameNode(value: 'name'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null),
-                    FieldNode(
-                        name: NameNode(value: '__typename'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null)
-                  ])),
-              FieldNode(
-                  name: NameNode(value: 'reciever'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: SelectionSetNode(selections: [
-                    FieldNode(
-                        name: NameNode(value: 'key'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null),
-                    FieldNode(
-                        name: NameNode(value: 'name'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null),
-                    FieldNode(
-                        name: NameNode(value: '__typename'),
-                        alias: null,
-                        arguments: [],
-                        directives: [],
-                        selectionSet: null)
-                  ])),
+              FragmentSpreadNode(
+                  name: NameNode(value: 'ChatSummary'), directives: []),
               FieldNode(
                   name: NameNode(value: '__typename'),
                   alias: null,
@@ -1873,6 +1807,8 @@ const documentNodeSubscriptionChatSend = DocumentNode(definitions: [
                   selectionSet: null)
             ]))
       ])),
+  fragmentDefinitionChatSummary,
+  fragmentDefinitionUserSummary,
 ]);
 Subscription$ChatSend _parserFn$Subscription$ChatSend(
         Map<String, dynamic> data) =>
@@ -1961,467 +1897,4 @@ class Subscription$ChatSend$Widget
             options: options ?? Options$Subscription$ChatSend(),
             builder: builder,
             onSubscriptionResult: onSubscriptionResult);
-}
-
-class Subscription$ChatSend$chatSend {
-  Subscription$ChatSend$chatSend(
-      {required this.key,
-      required this.data,
-      required this.created,
-      this.sender,
-      this.reciever,
-      required this.$__typename});
-
-  factory Subscription$ChatSend$chatSend.fromJson(Map<String, dynamic> json) {
-    final l$key = json['key'];
-    final l$data = json['data'];
-    final l$created = json['created'];
-    final l$sender = json['sender'];
-    final l$reciever = json['reciever'];
-    final l$$__typename = json['__typename'];
-    return Subscription$ChatSend$chatSend(
-        key: (l$key as String),
-        data: (l$data as String),
-        created: DateTime.parse((l$created as String)),
-        sender: l$sender == null
-            ? null
-            : Subscription$ChatSend$chatSend$sender.fromJson(
-                (l$sender as Map<String, dynamic>)),
-        reciever: l$reciever == null
-            ? null
-            : Subscription$ChatSend$chatSend$reciever.fromJson(
-                (l$reciever as Map<String, dynamic>)),
-        $__typename: (l$$__typename as String));
-  }
-
-  final String key;
-
-  final String data;
-
-  final DateTime created;
-
-  final Subscription$ChatSend$chatSend$sender? sender;
-
-  final Subscription$ChatSend$chatSend$reciever? reciever;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$key = key;
-    _resultData['key'] = l$key;
-    final l$data = data;
-    _resultData['data'] = l$data;
-    final l$created = created;
-    _resultData['created'] = l$created.toIso8601String();
-    final l$sender = sender;
-    _resultData['sender'] = l$sender?.toJson();
-    final l$reciever = reciever;
-    _resultData['reciever'] = l$reciever?.toJson();
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$key = key;
-    final l$data = data;
-    final l$created = created;
-    final l$sender = sender;
-    final l$reciever = reciever;
-    final l$$__typename = $__typename;
-    return Object.hashAll(
-        [l$key, l$data, l$created, l$sender, l$reciever, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Subscription$ChatSend$chatSend) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$key = key;
-    final lOther$key = other.key;
-    if (l$key != lOther$key) {
-      return false;
-    }
-    final l$data = data;
-    final lOther$data = other.data;
-    if (l$data != lOther$data) {
-      return false;
-    }
-    final l$created = created;
-    final lOther$created = other.created;
-    if (l$created != lOther$created) {
-      return false;
-    }
-    final l$sender = sender;
-    final lOther$sender = other.sender;
-    if (l$sender != lOther$sender) {
-      return false;
-    }
-    final l$reciever = reciever;
-    final lOther$reciever = other.reciever;
-    if (l$reciever != lOther$reciever) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Subscription$ChatSend$chatSend
-    on Subscription$ChatSend$chatSend {
-  CopyWith$Subscription$ChatSend$chatSend<Subscription$ChatSend$chatSend>
-      get copyWith => CopyWith$Subscription$ChatSend$chatSend(this, (i) => i);
-}
-
-abstract class CopyWith$Subscription$ChatSend$chatSend<TRes> {
-  factory CopyWith$Subscription$ChatSend$chatSend(
-          Subscription$ChatSend$chatSend instance,
-          TRes Function(Subscription$ChatSend$chatSend) then) =
-      _CopyWithImpl$Subscription$ChatSend$chatSend;
-
-  factory CopyWith$Subscription$ChatSend$chatSend.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$ChatSend$chatSend;
-
-  TRes call(
-      {String? key,
-      String? data,
-      DateTime? created,
-      Subscription$ChatSend$chatSend$sender? sender,
-      Subscription$ChatSend$chatSend$reciever? reciever,
-      String? $__typename});
-  CopyWith$Subscription$ChatSend$chatSend$sender<TRes> get sender;
-  CopyWith$Subscription$ChatSend$chatSend$reciever<TRes> get reciever;
-}
-
-class _CopyWithImpl$Subscription$ChatSend$chatSend<TRes>
-    implements CopyWith$Subscription$ChatSend$chatSend<TRes> {
-  _CopyWithImpl$Subscription$ChatSend$chatSend(this._instance, this._then);
-
-  final Subscription$ChatSend$chatSend _instance;
-
-  final TRes Function(Subscription$ChatSend$chatSend) _then;
-
-  static const _undefined = {};
-
-  TRes call(
-          {Object? key = _undefined,
-          Object? data = _undefined,
-          Object? created = _undefined,
-          Object? sender = _undefined,
-          Object? reciever = _undefined,
-          Object? $__typename = _undefined}) =>
-      _then(Subscription$ChatSend$chatSend(
-          key: key == _undefined || key == null
-              ? _instance.key
-              : (key as String),
-          data: data == _undefined || data == null
-              ? _instance.data
-              : (data as String),
-          created: created == _undefined || created == null
-              ? _instance.created
-              : (created as DateTime),
-          sender: sender == _undefined
-              ? _instance.sender
-              : (sender as Subscription$ChatSend$chatSend$sender?),
-          reciever: reciever == _undefined
-              ? _instance.reciever
-              : (reciever as Subscription$ChatSend$chatSend$reciever?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String)));
-  CopyWith$Subscription$ChatSend$chatSend$sender<TRes> get sender {
-    final local$sender = _instance.sender;
-    return local$sender == null
-        ? CopyWith$Subscription$ChatSend$chatSend$sender.stub(_then(_instance))
-        : CopyWith$Subscription$ChatSend$chatSend$sender(
-            local$sender, (e) => call(sender: e));
-  }
-
-  CopyWith$Subscription$ChatSend$chatSend$reciever<TRes> get reciever {
-    final local$reciever = _instance.reciever;
-    return local$reciever == null
-        ? CopyWith$Subscription$ChatSend$chatSend$reciever.stub(
-            _then(_instance))
-        : CopyWith$Subscription$ChatSend$chatSend$reciever(
-            local$reciever, (e) => call(reciever: e));
-  }
-}
-
-class _CopyWithStubImpl$Subscription$ChatSend$chatSend<TRes>
-    implements CopyWith$Subscription$ChatSend$chatSend<TRes> {
-  _CopyWithStubImpl$Subscription$ChatSend$chatSend(this._res);
-
-  TRes _res;
-
-  call(
-          {String? key,
-          String? data,
-          DateTime? created,
-          Subscription$ChatSend$chatSend$sender? sender,
-          Subscription$ChatSend$chatSend$reciever? reciever,
-          String? $__typename}) =>
-      _res;
-  CopyWith$Subscription$ChatSend$chatSend$sender<TRes> get sender =>
-      CopyWith$Subscription$ChatSend$chatSend$sender.stub(_res);
-  CopyWith$Subscription$ChatSend$chatSend$reciever<TRes> get reciever =>
-      CopyWith$Subscription$ChatSend$chatSend$reciever.stub(_res);
-}
-
-class Subscription$ChatSend$chatSend$sender {
-  Subscription$ChatSend$chatSend$sender(
-      {required this.key, required this.name, required this.$__typename});
-
-  factory Subscription$ChatSend$chatSend$sender.fromJson(
-      Map<String, dynamic> json) {
-    final l$key = json['key'];
-    final l$name = json['name'];
-    final l$$__typename = json['__typename'];
-    return Subscription$ChatSend$chatSend$sender(
-        key: (l$key as String),
-        name: (l$name as String),
-        $__typename: (l$$__typename as String));
-  }
-
-  final String key;
-
-  final String name;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$key = key;
-    _resultData['key'] = l$key;
-    final l$name = name;
-    _resultData['name'] = l$name;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$key = key;
-    final l$name = name;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$key, l$name, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Subscription$ChatSend$chatSend$sender) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$key = key;
-    final lOther$key = other.key;
-    if (l$key != lOther$key) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Subscription$ChatSend$chatSend$sender
-    on Subscription$ChatSend$chatSend$sender {
-  CopyWith$Subscription$ChatSend$chatSend$sender<
-          Subscription$ChatSend$chatSend$sender>
-      get copyWith =>
-          CopyWith$Subscription$ChatSend$chatSend$sender(this, (i) => i);
-}
-
-abstract class CopyWith$Subscription$ChatSend$chatSend$sender<TRes> {
-  factory CopyWith$Subscription$ChatSend$chatSend$sender(
-          Subscription$ChatSend$chatSend$sender instance,
-          TRes Function(Subscription$ChatSend$chatSend$sender) then) =
-      _CopyWithImpl$Subscription$ChatSend$chatSend$sender;
-
-  factory CopyWith$Subscription$ChatSend$chatSend$sender.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$ChatSend$chatSend$sender;
-
-  TRes call({String? key, String? name, String? $__typename});
-}
-
-class _CopyWithImpl$Subscription$ChatSend$chatSend$sender<TRes>
-    implements CopyWith$Subscription$ChatSend$chatSend$sender<TRes> {
-  _CopyWithImpl$Subscription$ChatSend$chatSend$sender(
-      this._instance, this._then);
-
-  final Subscription$ChatSend$chatSend$sender _instance;
-
-  final TRes Function(Subscription$ChatSend$chatSend$sender) _then;
-
-  static const _undefined = {};
-
-  TRes call(
-          {Object? key = _undefined,
-          Object? name = _undefined,
-          Object? $__typename = _undefined}) =>
-      _then(Subscription$ChatSend$chatSend$sender(
-          key: key == _undefined || key == null
-              ? _instance.key
-              : (key as String),
-          name: name == _undefined || name == null
-              ? _instance.name
-              : (name as String),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String)));
-}
-
-class _CopyWithStubImpl$Subscription$ChatSend$chatSend$sender<TRes>
-    implements CopyWith$Subscription$ChatSend$chatSend$sender<TRes> {
-  _CopyWithStubImpl$Subscription$ChatSend$chatSend$sender(this._res);
-
-  TRes _res;
-
-  call({String? key, String? name, String? $__typename}) => _res;
-}
-
-class Subscription$ChatSend$chatSend$reciever {
-  Subscription$ChatSend$chatSend$reciever(
-      {required this.key, required this.name, required this.$__typename});
-
-  factory Subscription$ChatSend$chatSend$reciever.fromJson(
-      Map<String, dynamic> json) {
-    final l$key = json['key'];
-    final l$name = json['name'];
-    final l$$__typename = json['__typename'];
-    return Subscription$ChatSend$chatSend$reciever(
-        key: (l$key as String),
-        name: (l$name as String),
-        $__typename: (l$$__typename as String));
-  }
-
-  final String key;
-
-  final String name;
-
-  final String $__typename;
-
-  Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
-    final l$key = key;
-    _resultData['key'] = l$key;
-    final l$name = name;
-    _resultData['name'] = l$name;
-    final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
-  }
-
-  @override
-  int get hashCode {
-    final l$key = key;
-    final l$name = name;
-    final l$$__typename = $__typename;
-    return Object.hashAll([l$key, l$name, l$$__typename]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    if (!(other is Subscription$ChatSend$chatSend$reciever) ||
-        runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$key = key;
-    final lOther$key = other.key;
-    if (l$key != lOther$key) {
-      return false;
-    }
-    final l$name = name;
-    final lOther$name = other.name;
-    if (l$name != lOther$name) {
-      return false;
-    }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
-    return true;
-  }
-}
-
-extension UtilityExtension$Subscription$ChatSend$chatSend$reciever
-    on Subscription$ChatSend$chatSend$reciever {
-  CopyWith$Subscription$ChatSend$chatSend$reciever<
-          Subscription$ChatSend$chatSend$reciever>
-      get copyWith =>
-          CopyWith$Subscription$ChatSend$chatSend$reciever(this, (i) => i);
-}
-
-abstract class CopyWith$Subscription$ChatSend$chatSend$reciever<TRes> {
-  factory CopyWith$Subscription$ChatSend$chatSend$reciever(
-          Subscription$ChatSend$chatSend$reciever instance,
-          TRes Function(Subscription$ChatSend$chatSend$reciever) then) =
-      _CopyWithImpl$Subscription$ChatSend$chatSend$reciever;
-
-  factory CopyWith$Subscription$ChatSend$chatSend$reciever.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$ChatSend$chatSend$reciever;
-
-  TRes call({String? key, String? name, String? $__typename});
-}
-
-class _CopyWithImpl$Subscription$ChatSend$chatSend$reciever<TRes>
-    implements CopyWith$Subscription$ChatSend$chatSend$reciever<TRes> {
-  _CopyWithImpl$Subscription$ChatSend$chatSend$reciever(
-      this._instance, this._then);
-
-  final Subscription$ChatSend$chatSend$reciever _instance;
-
-  final TRes Function(Subscription$ChatSend$chatSend$reciever) _then;
-
-  static const _undefined = {};
-
-  TRes call(
-          {Object? key = _undefined,
-          Object? name = _undefined,
-          Object? $__typename = _undefined}) =>
-      _then(Subscription$ChatSend$chatSend$reciever(
-          key: key == _undefined || key == null
-              ? _instance.key
-              : (key as String),
-          name: name == _undefined || name == null
-              ? _instance.name
-              : (name as String),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String)));
-}
-
-class _CopyWithStubImpl$Subscription$ChatSend$chatSend$reciever<TRes>
-    implements CopyWith$Subscription$ChatSend$chatSend$reciever<TRes> {
-  _CopyWithStubImpl$Subscription$ChatSend$chatSend$reciever(this._res);
-
-  TRes _res;
-
-  call({String? key, String? name, String? $__typename}) => _res;
 }
