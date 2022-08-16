@@ -1,0 +1,29 @@
+fragment UserSummary on User {
+  key
+  name
+}
+
+query User($userKey: String!) {
+  user(userKey: $userKey) {
+    ...UserSummary
+    followBy {
+      ...UserSummary
+    }
+    following {
+      ...UserSummary
+    }
+  }
+}
+
+query UserAll {
+  userAll {
+    ...UserSummary
+  }
+}
+
+mutation UserSignUp($info: UserInfo!) {
+  userSignUp(info: $info) {
+    ...UserSummary
+    accessToken
+  }
+}

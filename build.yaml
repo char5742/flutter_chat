@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        options:
+          clients:
+            - graphql
+            - graphql_flutter
+          scalars:
+            DateTime:
+              type: DateTime
+          addTypenameExcludedPaths:
+            - subscription

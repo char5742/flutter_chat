@@ -1,0 +1,50 @@
+fragment ChatSummary on Chat {
+  key
+  data
+  created
+  sender {
+    ...UserSummary
+  }
+  reciever {
+    ...UserSummary
+  }
+}
+
+query ChatUser($userKey: String!) {
+  user(userKey: $userKey) {
+    send {
+      ...ChatSummary
+    }
+    recieve {
+      ...ChatSummary
+    }
+  }
+}
+
+mutation ChatSend($info: ChatInfo!) {
+  chatSend(info: $info) {
+    ...ChatSummary
+  }
+}
+
+mutation ChatDelete($chatKey: String!) {
+  chatDelete(chatKey: $chatKey) {
+    ...ChatSummary
+  }
+}
+
+subscription ChatSend {
+  chatSend {
+    key
+    data
+    created
+    sender {
+      key
+      name
+    }
+    reciever {
+      key
+      name
+    }
+  }
+}
