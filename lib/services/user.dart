@@ -17,7 +17,6 @@ class UserService {
       throw res.exception!;
     }
     final user = res.parsedData!.userSignUp!;
-
     final isar = ref.read(isarProvider);
     await isar.writeTxn(() => isar.accounts.put(Account()
       ..accessToken = user.accessToken
@@ -28,6 +27,9 @@ class UserService {
   }
 
   Future<User?> userByKey(String key) async {
+    final isarUser = await ref.watch(isarProvider).users.getByKey(key);
+    if (isarUser != null) return isarUser;
+
     final res = await ref.read(graphqlProvider).userByKey(key);
     if (res.hasException) {
       throw res.exception!;

@@ -1,6 +1,5 @@
 import 'package:flutter_chat/domain/graphql/schema/schema.graphql.dart';
 import 'package:flutter_chat/domain/isar/chat/chat.dart';
-import 'package:flutter_chat/provider/chat.dart';
 import 'package:flutter_chat/provider/graphql.dart';
 import 'package:flutter_chat/provider/isar.dart';
 import 'package:flutter_chat/provider/user.dart';
@@ -78,11 +77,9 @@ class ChatService {
     final stream = ref.read(graphqlProvider).chatSendWatch();
     final isar = ref.read(isarProvider);
     stream.listen((res) {
-      print('call');
       if (res.hasException) {
         throw res.exception!;
       } else {
-        print(res);
         final chat = res.parsedData!.chatSend!;
         isar.writeTxn(() async {
           final newChat = Chat()
@@ -91,9 +88,8 @@ class ChatService {
             ..data = chat.data
             ..senderKey = chat.sender!.key
             ..recieverKey = chat.reciever!.key;
-          await isar.chats.put(newChat);
+          await isar.chats.putByKey(newChat);
         });
-        ref.refresh(chatListProvider);
       }
     });
   }

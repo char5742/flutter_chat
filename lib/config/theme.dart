@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-const _primaryTextColor = Colors.white;
+const _primaryTextColor = Color(0xFF666666);
 const _secondaryTextColor = Color(0xFF707070);
 
-const _primaryColor = Color(0xFF16212c);
-const _primaryColorDart = Color.fromARGB(255, 9, 15, 20);
-const _primaryColorLight = Color.fromARGB(255, 43, 53, 58);
+const _primaryColor = Color(0xFF8FDCFF);
+const _primaryColorDart = Color.fromARGB(255, 170, 230, 254);
+const _primaryColorLight = Color.fromARGB(255, 161, 222, 252);
 
 ThemeData theme = ThemeData(
   fontFamily: 'Noto Sans JP',
-  backgroundColor: _primaryColor,
-  scaffoldBackgroundColor: _primaryColor,
+  backgroundColor: const Color(0xFFEEFAFF),
+  scaffoldBackgroundColor: const Color(0xFFEEFAFF),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: _primaryColor,
     selectedItemColor: Colors.white,
     unselectedItemColor: Colors.white,
   ),
   appBarTheme: const AppBarTheme(
+    shadowColor: Colors.transparent,
+    systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        statusBarColor: Colors.transparent),
     backgroundColor: _primaryColorDart,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -70,7 +75,7 @@ ThemeData theme = ThemeData(
       color: _primaryTextColor,
     ),
     bodyText1: TextStyle(
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: FontWeight.normal,
       color: _primaryTextColor,
     ),

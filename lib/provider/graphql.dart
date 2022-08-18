@@ -9,19 +9,17 @@ import 'package:flutter_chat/domain/graphql/user/user.graphql.dart';
 final clientProvider = Provider(
   (ref) => GraphQLClient(
     link: AuthLink(
-            getToken: () => 'Bearer ${ref.watch(accountProvider).accessToken}')
-        .concat(
+        getToken: () => ref.watch(accountProvider).accessToken != null
+            ? 'Bearer ${ref.watch(accountProvider).accessToken}'
+            : null).concat(
       Link.split(
         (request) => request.isSubscription,
         WebSocketLink('ws$API',
-            config: SocketClientConfig(
-              initialPayload: ref.watch(accountProvider).accessToken != null
-                  ? {
-                      'Authorization':
-                          'Bearer ${ref.watch(accountProvider).accessToken}'
-                    }
-                  : {},
-            ),
+            config: SocketClientConfig(initialPayload: {
+              'Authorization': ref.watch(accountProvider).accessToken != null
+                  ? 'Bearer ${ref.watch(accountProvider).accessToken}'
+                  : ''
+            }),
             subProtocol: GraphQLProtocol.graphqlTransportWs),
         HttpLink('http$API'),
       ),

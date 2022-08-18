@@ -12,6 +12,7 @@ class App extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final key = GlobalKey();
     late final router = GoRouter(routes: [
       GoRoute(
           path: '/',
@@ -25,7 +26,7 @@ class App extends HookConsumerWidget {
       GoRoute(
         path: '/home',
         builder: (_, __) {
-          return const HomePage();
+          return HomePage(key: key);
         },
       ),
       GoRoute(

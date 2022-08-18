@@ -12,6 +12,7 @@ class SignUpPage extends HookConsumerWidget {
     final controller = useTextEditingController();
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextFormField(
               controller: controller, style: theme.primaryTextTheme.bodyText1),
