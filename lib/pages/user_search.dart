@@ -17,7 +17,6 @@ class UserSearchPage extends HookConsumerWidget {
     final keyContriller = useTextEditingController();
     final listenableCotroller = useValueListenable(keyContriller);
     final user = useState<User?>(null);
-    final focus = useFocusNode();
     search() async {
       // 自分を検索できないように
       if (keyContriller.text != ref.read(accountProvider).key) {
@@ -25,16 +24,6 @@ class UserSearchPage extends HookConsumerWidget {
             await ref.read(userServiceProvider).userByKey(keyContriller.text);
       }
     }
-
-    useEffect(() {
-      focus.addListener(() {
-        // focusを固定
-        if (!focus.hasFocus) {
-          focus.requestFocus();
-        }
-      });
-      return null;
-    }, []);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,7 +60,6 @@ class UserSearchPage extends HookConsumerWidget {
                 style: theme.primaryTextTheme.bodyText2,
                 onEditingComplete: search,
                 autofocus: true,
-                focusNode: focus,
                 decoration: InputDecoration(
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
