@@ -39,6 +39,7 @@ class UserSearchPage extends HookConsumerWidget {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('自分のKEY: ${ref.watch(accountProvider).key}'),
                 OutlinedIconButton(
