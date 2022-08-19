@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat/domain/isar/user/user.dart';
 import 'package:flutter_chat/pages/component.dart';
+import 'package:flutter_chat/provider/user.dart';
 import 'package:flutter_chat/services/user.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +18,14 @@ class UserSearchPage extends HookConsumerWidget {
     final listenableCotroller = useValueListenable(keyContriller);
     final user = useState<User?>(null);
     final focus = useFocusNode();
+    search() async {
+      // 自分を検索できないように
+      if (keyContriller.text != ref.read(accountProvider).key) {
+        user.value =
+            await ref.read(userServiceProvider).userByKey(keyContriller.text);
+      }
+    }
+
     useEffect(() {
       focus.addListener(() {
         // focusを固定
@@ -29,7 +39,7 @@ class UserSearchPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: OutlinedIconButton(
-          icon: Icons.arrow_back_outlined,
+          icon: Icons.arrow_back_ios,
           onPressed: () {
             context.pop();
           },
@@ -39,17 +49,27 @@ class UserSearchPage extends HookConsumerWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            Row(
+              children: [
+                Text('自分のKEY: ${ref.watch(accountProvider).key}'),
+                OutlinedIconButton(
+                  icon: Icons.copy_outlined,
+                  color: Colors.grey,
+                  onPressed: () async {
+                    final data =
+                        ClipboardData(text: ref.watch(accountProvider).key);
+                    await Clipboard.setData(data);
+                  },
+                ),
+              ],
+            ),
             Container(
               height: 60,
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
                 controller: keyContriller,
                 style: theme.primaryTextTheme.bodyText2,
-                onEditingComplete: () async {
-                  user.value = await ref
-                      .read(userServiceProvider)
-                      .userByKey(keyContriller.text);
-                },
+                onEditingComplete: search,
                 autofocus: true,
                 focusNode: focus,
                 decoration: InputDecoration(
@@ -73,13 +93,9 @@ class UserSearchPage extends HookConsumerWidget {
                           ),
                         ),
                       GestureDetector(
+                        onTap: search,
                         child: const Icon(Icons.search_outlined,
                             color: Colors.grey),
-                        onTap: () async {
-                          user.value = await ref
-                              .read(userServiceProvider)
-                              .userByKey(keyContriller.text);
-                        },
                       ),
                     ],
                   ),
