@@ -87,7 +87,7 @@ ThemeData theme = ThemeData(
     button: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
-      color: _primaryTextColor,
+      color: Colors.white,
     ),
     caption: TextStyle(
       fontSize: 12,

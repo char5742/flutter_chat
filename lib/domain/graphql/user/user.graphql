@@ -27,3 +27,13 @@ mutation UserSignUp($info: UserInfo!) {
     accessToken
   }
 }
+mutation UserFollow($userKey: String!) {
+  userFollow(userKey: $userKey) {
+    key
+  }
+}
+mutation UserUnFollow($userKey: String!) {
+  userUnFollow(userKey: $userKey) {
+    key
+  }
+}

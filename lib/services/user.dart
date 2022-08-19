@@ -47,4 +47,36 @@ class UserService {
       ..key = user.key
       ..name = user.name;
   }
+
+  Future<void> follow(String key) async {
+    final res = await ref.read(graphqlProvider).userFollow(key);
+    if (res.hasException) {
+      throw res.exception!;
+    }
+    final isar = ref.read(isarProvider);
+    final userKey = res.parsedData?.userFollow?.key;
+    if (userKey != null) {
+      await isar.writeTxn(() async {
+        final account = await isar.accounts.get(1);
+        account!.following = account.following.toList()..add(userKey);
+        await isar.accounts.put(account);
+      });
+    }
+  }
+
+  Future<void> unfollow(String key) async {
+    final res = await ref.read(graphqlProvider).userUnFollow(key);
+    if (res.hasException) {
+      throw res.exception!;
+    }
+    final isar = ref.read(isarProvider);
+    final userKey = res.parsedData?.userUnFollow?.key;
+    if (userKey != null) {
+      await isar.writeTxn(() async {
+        final account = await isar.accounts.get(1);
+        account!.following = account.following.toList()..remove(userKey);
+        await isar.accounts.put(account);
+      });
+    }
+  }
 }

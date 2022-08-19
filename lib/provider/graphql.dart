@@ -45,6 +45,16 @@ class GraphQLRepository {
         Options$Query$User(variables: Variables$Query$User(userKey: key)));
   }
 
+  Future<QueryResult<Mutation$UserFollow>> userFollow(String key) async {
+    return await client.mutate$UserFollow(Options$Mutation$UserFollow(
+        variables: Variables$Mutation$UserFollow(userKey: key)));
+  }
+
+  Future<QueryResult<Mutation$UserUnFollow>> userUnFollow(String key) async {
+    return await client.mutate$UserUnFollow(Options$Mutation$UserUnFollow(
+        variables: Variables$Mutation$UserUnFollow(userKey: key)));
+  }
+
   Future<QueryResult<Query$ChatUser>> chatUser(String key) async {
     return await client.query$ChatUser(Options$Query$ChatUser(
         variables: Variables$Query$ChatUser(userKey: key)));

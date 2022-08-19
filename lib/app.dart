@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/pages/chat.dart';
 import 'package:flutter_chat/pages/signup.dart';
+import 'package:flutter_chat/pages/user_search.dart';
 import 'package:flutter_chat/provider/user.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,7 +14,6 @@ class App extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final key = GlobalKey();
     late final router = GoRouter(routes: [
       GoRoute(
           path: '/',
@@ -24,11 +25,24 @@ class App extends HookConsumerWidget {
             }
           }),
       GoRoute(
-        path: '/home',
-        builder: (_, __) {
-          return HomePage(key: key);
-        },
-      ),
+          path: '/home',
+          builder: (_, __) {
+            return const HomePage();
+          },
+          routes: [
+            GoRoute(
+              path: 'chatroom',
+              builder: (_, __) {
+                return const ChatRoomPage();
+              },
+            ),
+            GoRoute(
+              path: 'usersearch',
+              builder: (_, __) {
+                return const UserSearchPage();
+              },
+            ),
+          ]),
       GoRoute(
         path: '/signup',
         builder: (_, __) {
