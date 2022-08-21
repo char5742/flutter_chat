@@ -30,3 +30,34 @@ class OutlinedIconButton extends HookConsumerWidget {
     );
   }
 }
+
+Future<void> showOutlinedDialog({
+  required BuildContext context,
+  required String text,
+}) async {
+  final theme = Theme.of(context);
+  await showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: theme.primaryColorDark,
+                width: 4,
+              ),
+            ),
+            width: 300,
+            height: 150,
+            child: Text(
+              text,
+              style: theme.primaryTextTheme.headline6,
+            ),
+          ),
+        );
+      });
+}
