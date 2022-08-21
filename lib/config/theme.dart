@@ -18,6 +18,12 @@ ThemeData theme = ThemeData(
     unselectedItemColor: Colors.white,
   ),
   appBarTheme: const AppBarTheme(
+    titleSpacing: 0,
+    titleTextStyle: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
     shadowColor: Colors.transparent,
     systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,

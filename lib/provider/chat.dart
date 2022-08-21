@@ -9,3 +9,14 @@ final chatListProvider = StreamProvider((ref) {
   ref.read(chatServiceProvider).chatRecieveWatch();
   return ref.read(isarProvider).chats.where().watch(initialReturn: true);
 });
+
+final chatRoomProvider =
+    Provider.family.autoDispose<List<Chat>?, String>((ref, key) {
+  return ref
+      .watch(chatListProvider)
+      .whenData((list) => list.where(
+          (element) => element.senderKey == key || element.recieverKey == key))
+      .asData
+      ?.value
+      .toList();
+});

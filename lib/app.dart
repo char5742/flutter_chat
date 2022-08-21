@@ -31,9 +31,10 @@ class App extends HookConsumerWidget {
           },
           routes: [
             GoRoute(
-              path: 'chatroom',
-              builder: (_, __) {
-                return const ChatRoomPage();
+              path: 'chatroom/:key',
+              builder: (_, state) {
+                final userKey = state.params['key']!;
+                return ChatRoomPage(userKey: userKey);
               },
             ),
             GoRoute(

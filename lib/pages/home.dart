@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/pages/component.dart';
 import 'package:flutter_chat/provider/user.dart';
-import 'package:flutter_chat/services/user.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,6 +14,12 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.only(left: 16.0),
+          child: Text(
+            'チャット',
+          ),
+        ),
         actions: [
           OutlinedIconButton(
             onPressed: () {
@@ -28,8 +33,7 @@ class HomePage extends HookConsumerWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             ...ref
@@ -52,15 +56,30 @@ class FollowingBox extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final userMemo =
-        useMemoized(() => ref.watch(userServiceProvider).userByKey(userKey));
-
-    final userAsync = useFuture(userMemo);
+    final userAsync = ref.watch(userProvider(userKey));
     final theme = Theme.of(context);
-
-    return SizedBox(
-      width: double.infinity,
-      child: Text(userAsync.data?.name ?? ''),
+    final tap = useState(false);
+    return Container(
+      child: userAsync.whenOrNull(
+        data: (data) => GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTapCancel: () => tap.value = false,
+          onTapDown: (_) => tap.value = true,
+          onTapUp: (_) => tap.value = false,
+          onTap: () => context.go('/home/chatroom/${data?.key}'),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            color: tap.value ? Colors.grey.withOpacity(0.2) : null,
+            width: double.infinity,
+            child: Text(
+              data?.name ?? '',
+              style: theme.primaryTextTheme.headline6,
+            ),
+          ),
+        ),
+        error: (error, stackTrace) => Container(),
+        loading: () => Container(),
+      ),
     );
   }
 }
