@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat/domain/isar/user/user.dart';
 import 'package:flutter_chat/pages/component.dart';
 import 'package:flutter_chat/provider/user.dart';
-import 'package:flutter_chat/services/user.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
