@@ -5,9 +5,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class OutlinedIconButton extends HookConsumerWidget {
   final IconData icon;
   final Function() onPressed;
+  final Color? color;
   const OutlinedIconButton({
     Key? key,
     required this.icon,
+    this.color,
     required this.onPressed,
   }) : super(key: key);
   @override
@@ -21,9 +23,7 @@ class OutlinedIconButton extends HookConsumerWidget {
           onEnter: (_) => hover.value = true,
           onExit: (_) => hover.value = false,
           child: Icon(icon,
-              color: Theme.of(context)
-                  .iconTheme
-                  .color
+              color: (color ?? Theme.of(context).iconTheme.color)
                   ?.withAlpha(hover.value ? 160 : 255)),
         ),
       ),
