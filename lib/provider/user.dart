@@ -21,3 +21,5 @@ final userProvider =
     FutureProvider.family.autoDispose<User?, String>((ref, key) async {
   return ref.watch(userServiceProvider).userByKey(key);
 });
+
+final userServiceProvider = Provider(UserService.new);

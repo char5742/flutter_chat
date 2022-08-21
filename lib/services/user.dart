@@ -5,8 +5,6 @@ import 'package:flutter_chat/provider/graphql.dart';
 import 'package:flutter_chat/provider/isar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final userServiceProvider = Provider(UserService.new);
-
 class UserService {
   final Ref ref;
   UserService(this.ref);
