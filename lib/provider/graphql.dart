@@ -12,14 +12,14 @@ final clientProvider = Provider(
             : null).concat(
       Link.split(
         (request) => request.isSubscription,
-        WebSocketLink('ws$API',
+        WebSocketLink('wss$API',
             config: SocketClientConfig(initialPayload: {
               'Authorization': ref.watch(accountProvider).accessToken != null
                   ? 'Bearer ${ref.watch(accountProvider).accessToken}'
                   : ''
             }),
             subProtocol: GraphQLProtocol.graphqlTransportWs),
-        HttpLink('http$API'),
+        HttpLink('https$API'),
       ),
     ),
     cache: GraphQLCache(
@@ -30,7 +30,6 @@ final clientProvider = Provider(
       mutate: Policies(fetch: FetchPolicy.cacheAndNetwork),
       watchQuery: Policies(fetch: FetchPolicy.cacheAndNetwork),
     ),
-    alwaysRebroadcast: true,
   ),
 );
 

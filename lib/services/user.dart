@@ -56,16 +56,15 @@ class UserService {
   }
 
   Future<void> follow(String key) async {
-    final res = await ref.watch(graphqlProvider).userFollow(key);
+    final res = await ref.read(graphqlProvider).userFollow(key);
     if (res.hasException) {
       throw res.exception!;
     }
-    final user = ref
-        .watch(graphqlProvider)
-        .userByKeyRead(ref.watch(accountProvider).key);
+    final user =
+        ref.read(graphqlProvider).userByKeyRead(ref.watch(accountProvider).key);
 
-    final targetUser = ref.watch(graphqlProvider).userByKeyRead(key);
-    ref.watch(graphqlProvider).userByKeyWrite(
+    final targetUser = ref.read(graphqlProvider).userByKeyRead(key);
+    ref.read(graphqlProvider).userByKeyWrite(
         user!..user!.following!.add(targetUser!.user!), user.user!.key);
   }
 
