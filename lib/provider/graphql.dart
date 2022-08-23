@@ -22,7 +22,15 @@ final clientProvider = Provider(
         HttpLink('http$API'),
       ),
     ),
-    cache: GraphQLCache(),
+    cache: GraphQLCache(
+      store: HiveStore(),
+    ),
+    defaultPolicies: DefaultPolicies(
+      query: Policies(fetch: FetchPolicy.cacheAndNetwork),
+      mutate: Policies(fetch: FetchPolicy.cacheAndNetwork),
+      watchQuery: Policies(fetch: FetchPolicy.cacheAndNetwork),
+    ),
+    alwaysRebroadcast: true,
   ),
 );
 

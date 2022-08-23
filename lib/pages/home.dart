@@ -11,7 +11,6 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(context, ref) {
     final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
@@ -37,8 +36,7 @@ class HomePage extends HookConsumerWidget {
         child: Column(
           children: [
             ...ref
-                .watch(accountProvider)
-                .following
+                .watch(followingProvider)
                 .map((key) => FollowingBox(userKey: key))
           ],
         ),

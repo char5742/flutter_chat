@@ -20,6 +20,26 @@ class GraphQLService {
         Options$Query$User(variables: Variables$Query$User(userKey: key)));
   }
 
+  ObservableQuery<Query$User> userByKeyWatch(String key) {
+    return client.watchQuery$User(WatchOptions$Query$User(
+      variables: Variables$Query$User(userKey: key),
+      eagerlyFetchResults: true,
+    ));
+  }
+
+  void userByKeyWrite(Query$User data, String key) {
+    return client.writeQuery$User(
+      data: data,
+      variables: Variables$Query$User(userKey: key),
+    );
+  }
+
+  Query$User? userByKeyRead(String key) {
+    return client.readQuery$User(
+      variables: Variables$Query$User(userKey: key),
+    );
+  }
+
   Future<QueryResult<Mutation$UserFollow>> userFollow(String key) async {
     return await client.mutate$UserFollow(Options$Mutation$UserFollow(
         variables: Variables$Mutation$UserFollow(userKey: key)));
@@ -33,6 +53,22 @@ class GraphQLService {
   Future<QueryResult<Query$ChatUser>> chatUser(String key) async {
     return await client.query$ChatUser(Options$Query$ChatUser(
         variables: Variables$Query$ChatUser(userKey: key)));
+  }
+
+  Query$ChatUser? chatUserRead(String key) {
+    return client.readQuery$ChatUser(
+        variables: Variables$Query$ChatUser(userKey: key));
+  }
+
+  ObservableQuery<Query$ChatUser> chatUserWatch(String key) {
+    return client.watchQuery$ChatUser(WatchOptions$Query$ChatUser(
+        variables: Variables$Query$ChatUser(userKey: key),
+        eagerlyFetchResults: true));
+  }
+
+  void chatUserWrite(Query$ChatUser data, String key) {
+    client.writeQuery$ChatUser(
+        data: data, variables: Variables$Query$ChatUser(userKey: key));
   }
 
   Future<QueryResult<Mutation$ChatSend>> chatSend(Input$ChatInfo info) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/domain/chat.dart';
 import 'package:flutter_chat/pages/component.dart';
 import 'package:flutter_chat/provider/chat.dart';
 import 'package:flutter_chat/provider/user.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_chat/services/chat.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_chat/domain/isar/chat/chat.dart';
 import 'package:flutter_chat/utils/date_format.dart';
 
 class ChatRoomPage extends HookConsumerWidget {

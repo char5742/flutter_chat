@@ -1,7 +1,6 @@
+import 'package:flutter_chat/domain/chat.dart';
 import 'package:flutter_chat/domain/graphql/schema/schema.graphql.dart';
-import 'package:flutter_chat/domain/isar/chat/chat.dart';
 import 'package:flutter_chat/provider/graphql.dart';
-import 'package:flutter_chat/provider/isar.dart';
 import 'package:flutter_chat/provider/user.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,38 +9,65 @@ final chatServiceProvider = Provider(ChatService.new);
 class ChatService {
   final Ref ref;
   ChatService(this.ref);
-  Future<void> allMyChat() async {
+  Stream<List<Chat>> allMyChat() async* {
     final key = ref.read(accountProvider).key;
-    final res = await ref.read(graphqlProvider).chatUser(key);
-    if (res.hasException) {
-      throw res.exception!;
-    }
-    final user = res.parsedData!.user!;
-    final isar = ref.read(isarProvider);
-    await isar.writeTxn(() async {
-      if (user.recieve != null) {
-        for (final e in user.recieve!) {
-          final newChat = Chat()
-            ..created = e.created
-            ..key = e.key
-            ..data = e.data
-            ..senderKey = e.sender!.key
-            ..recieverKey = e.reciever!.key;
-          await isar.chats.putByKey(newChat);
-        }
+    final stream = ref.read(graphqlProvider).chatUserWatch(key).stream;
+    yield await ref.read(graphqlProvider).chatUser(key).then((res) {
+      final user = res.parsedData!.user;
+      if (user == null) {
+        return [];
       }
-      if (user.send != null) {
-        for (final e in user.send!) {
-          final newChat = Chat()
-            ..created = e.created
-            ..key = e.key
-            ..data = e.data
-            ..senderKey = e.sender!.key
-            ..recieverKey = e.reciever!.key;
-          await isar.chats.putByKey(newChat);
-        }
-      }
+      final chats = [
+            ...?res.parsedData?.user?.recieve?.map((chat) => Chat()
+              ..created = chat.created
+              ..key = chat.key
+              ..data = chat.data
+              ..senderKey = chat.sender!.key
+              ..recieverKey = chat.reciever!.key)
+          ] +
+          [
+            ...?res.parsedData?.user?.send?.map((chat) => Chat()
+              ..created = chat.created
+              ..key = chat.key
+              ..data = chat.data
+              ..senderKey = chat.sender!.key
+              ..recieverKey = chat.reciever!.key)
+          ];
+      chats.sort((a, b) => a.created.compareTo(b.created));
+
+      return chats;
     });
+    await for (final res in stream) {
+      if (res.hasException) {
+        throw res.exception!;
+      } else {
+        final user = res.parsedData!.user;
+
+        if (user == null) {
+          yield [];
+        }
+        final chats = [
+              ...?res.parsedData?.user?.recieve?.map((chat) => Chat()
+                ..created = chat.created
+                ..key = chat.key
+                ..data = chat.data
+                ..senderKey = chat.sender!.key
+                ..recieverKey = chat.reciever!.key)
+            ] +
+            [
+              ...?res.parsedData?.user?.send?.map((chat) => Chat()
+                ..created = chat.created
+                ..key = chat.key
+                ..data = chat.data
+                ..senderKey = chat.sender!.key
+                ..recieverKey = chat.reciever!.key)
+            ];
+        print('chat watch');
+        chats.sort((a, b) => a.created.compareTo(b.created));
+
+        yield chats;
+      }
+    }
   }
 
   Future<void> chatSend({
@@ -54,14 +80,10 @@ class ChatService {
     if (res.hasException) {
       throw res.exception!;
     }
+    final key = ref.read(accountProvider).key;
+    final user = ref.read(graphqlProvider).chatUserRead(key);
     final chat = res.parsedData!.chatSend!;
-    final isar = ref.read(isarProvider);
-    await isar.writeTxn(() => isar.chats.put(Chat()
-      ..data = chat.data
-      ..key = chat.key
-      ..created = chat.created
-      ..recieverKey = chat.reciever!.key
-      ..senderKey = chat.sender!.key));
+    ref.read(graphqlProvider).chatUserWrite(user!..user!.send!.add(chat), key);
   }
 
   Future<void> chatDelete(String key) async {
@@ -69,28 +91,27 @@ class ChatService {
     if (res.hasException) {
       throw res.exception!;
     }
-    final isar = ref.read(isarProvider);
-    await isar.writeTxn(() => ref.read(isarProvider).chats.deleteByKey(key));
   }
 
-  void chatRecieveWatch() {
+  Stream<Chat> chatRecieveWatch() async* {
     final stream = ref.read(graphqlProvider).chatSendWatch();
-    final isar = ref.read(isarProvider);
-    stream.listen((res) {
+    final key = ref.read(accountProvider).key;
+    await for (final res in stream) {
       if (res.hasException) {
         throw res.exception!;
       } else {
         final chat = res.parsedData!.chatSend!;
-        isar.writeTxn(() async {
-          final newChat = Chat()
-            ..created = chat.created
-            ..key = chat.key
-            ..data = chat.data
-            ..senderKey = chat.sender!.key
-            ..recieverKey = chat.reciever!.key;
-          await isar.chats.putByKey(newChat);
-        });
+        yield Chat()
+          ..created = chat.created
+          ..key = chat.key
+          ..data = chat.data
+          ..senderKey = chat.sender!.key
+          ..recieverKey = chat.reciever!.key;
+        final user = ref.read(graphqlProvider).chatUserRead(key);
+        ref
+            .read(graphqlProvider)
+            .chatUserWrite(user!..user!.recieve!.add(chat), key);
       }
-    });
+    }
   }
 }

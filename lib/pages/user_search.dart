@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat/domain/isar/user/user.dart';
+import 'package:flutter_chat/domain/user.dart';
 import 'package:flutter_chat/pages/component.dart';
 import 'package:flutter_chat/provider/user.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -102,7 +102,13 @@ class UserSearchPage extends HookConsumerWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          ref.read(userServiceProvider).follow(user.value!.key);
+                          if (!ref
+                              .watch(followingProvider)
+                              .contains(user.value!.key)) {
+                            ref
+                                .read(userServiceProvider)
+                                .follow(user.value!.key);
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -110,7 +116,11 @@ class UserSearchPage extends HookConsumerWidget {
                             vertical: 10,
                           ),
                           child: Text(
-                            '追加',
+                            ref
+                                    .watch(followingProvider)
+                                    .contains(user.value!.key)
+                                ? '追加済み'
+                                : '追加',
                             textAlign: TextAlign.center,
                             style: theme.primaryTextTheme.button,
                           ),
