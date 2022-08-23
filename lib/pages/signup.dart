@@ -17,15 +17,26 @@ class SignUpPage extends HookConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Padding(padding: EdgeInsets.only(top: 200)),
-          TextFormField(
-              controller: controller, style: theme.primaryTextTheme.bodyText1),
+          Padding(
+            padding: const EdgeInsets.only(top: 200, bottom: 50),
+            child: Text(
+              '名前を入力してください',
+              style: theme.primaryTextTheme.headline4,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: TextFormField(
+              controller: controller,
+              style: theme.primaryTextTheme.bodyText1,
+            ),
+          ),
           ElevatedButton(
               onPressed: () async {
                 if (!push.value) {
                   push.value = true;
                   try {
-                    ref
+                    await ref
                         .read(userServiceProvider)
                         .signUp(controller.text)
                         .whenComplete(() => context.go('/'));
@@ -38,7 +49,15 @@ class SignUpPage extends HookConsumerWidget {
                   push.value = false;
                 }
               },
-              child: const Text('確定')),
+              child: Container(
+                width: 150,
+                height: 40,
+                alignment: Alignment.center,
+                child: Text(
+                  '確定',
+                  style: theme.primaryTextTheme.button?.copyWith(fontSize: 24),
+                ),
+              )),
         ],
       ),
     );
