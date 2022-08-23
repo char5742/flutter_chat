@@ -45,9 +45,9 @@ class ChatRoomPage extends HookConsumerWidget {
                       controller: scrollController,
                       child: Column(
                         children: [
-                          ...?ref
+                          ...ref
                               .watch(chatRoomProvider(userKey))
-                              ?.map(
+                              .map(
                                 (e) => Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: ChatBox(

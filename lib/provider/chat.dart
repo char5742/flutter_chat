@@ -8,12 +8,11 @@ final chatListProvider = StreamProvider((ref) {
 });
 
 final chatRoomProvider =
-    Provider.family.autoDispose<List<Chat>?, String>((ref, key) {
-  return ref
-      .watch(chatListProvider)
-      .whenData((list) => list.where(
-          (element) => element.senderKey == key || element.recieverKey == key))
-      .asData
-      ?.value
-      .toList();
+    Provider.family.autoDispose<List<Chat>, String>((ref, key) {
+  return ref.watch(chatListProvider.select((list) =>
+      list.asData?.value
+          .where((element) =>
+              element.senderKey == key || element.recieverKey == key)
+          .toList() ??
+      []));
 });
