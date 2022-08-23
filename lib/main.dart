@@ -8,7 +8,7 @@ import 'firebase_options.dart';
 import 'app.dart';
 
 Future main() async {
-  await dotenv.load(fileName: 'assets/.env');
+  await dotenv.load(fileName: 'assets/env');
   WidgetsFlutterBinding.ensureInitialized();
   await initHiveForFlutter();
   await Firebase.initializeApp(
