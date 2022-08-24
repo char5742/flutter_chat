@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat/pages/component.dart';
 import 'package:flutter_chat/provider/user.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -36,15 +35,14 @@ class SignUpPage extends HookConsumerWidget {
                 if (!push.value) {
                   push.value = true;
                   try {
-                    await ref
-                        .read(userServiceProvider)
-                        .signUp(controller.text)
-                        .whenComplete(() => context.go('/'));
-                  } on LinkException {
-                    showOutlinedDialog(
-                      context: context,
-                      text: 'ネットワークに接続できませんでした',
-                    );
+                    await ref.read(userServiceProvider).signUp(controller.text);
+                  } on OperationException catch (e) {
+                    if (e.linkException != null) {
+                      showOutlinedDialog(
+                        context: context,
+                        text: 'ネットワークに接続できませんでした',
+                      );
+                    }
                   }
                   push.value = false;
                 }

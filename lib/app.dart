@@ -14,51 +14,49 @@ class App extends HookConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    late final router = GoRouter(routes: [
-      GoRoute(
-          path: '/',
-          redirect: (_) {
-            if (ref.watch(accountProvider).accessToken == null) {
-              return '/signup';
-            } else {
-              return '/home';
-            }
-          }),
-      GoRoute(
-          path: '/home',
-          builder: (_, __) {
-            return const HomePage();
-          },
-          routes: [
-            GoRoute(
-              path: 'chatroom/:key',
-              builder: (_, state) {
-                final userKey = state.params['key']!;
-                return ChatRoomPage(userKey: userKey);
-              },
-            ),
-            GoRoute(
-              path: 'usersearch',
-              builder: (_, __) {
-                return const UserSearchPage();
-              },
-            ),
-          ]),
-      GoRoute(
-        path: '/signup',
-        builder: (_, __) {
-          return const SignUpPage();
+    late final router = GoRouter(
+        redirect: (state) {
+          if (ref.watch(accountProvider).accessToken == null) {
+            return state.subloc == '/signup' ? null : '/signup';
+          } else if (state.subloc == '/signup') {
+            return '/';
+          }
+          return null;
         },
-      ),
-    ]);
+        routes: [
+          GoRoute(
+              path: '/',
+              builder: (_, __) {
+                return const HomePage();
+              },
+              routes: [
+                GoRoute(
+                  path: 'chatroom/:key',
+                  builder: (_, state) {
+                    final userKey = state.params['key']!;
+                    return ChatRoomPage(userKey: userKey);
+                  },
+                ),
+                GoRoute(
+                  path: 'usersearch',
+                  builder: (_, __) {
+                    return const UserSearchPage();
+                  },
+                ),
+              ]),
+          GoRoute(
+            path: '/signup',
+            builder: (_, __) {
+              return const SignUpPage();
+            },
+          ),
+        ]);
 
-    return Builder(
-      builder: (ctx) => MaterialApp.router(
-        theme: theme,
-        routeInformationProvider: router.routeInformationProvider,
-        routeInformationParser: router.routeInformationParser,
-        routerDelegate: router.routerDelegate,
-      ),
+    return MaterialApp.router(
+      theme: theme,
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
     );
   }
 }
