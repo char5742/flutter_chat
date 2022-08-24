@@ -62,7 +62,6 @@ class ChatService {
                 ..senderKey = chat.sender!.key
                 ..recieverKey = chat.reciever!.key)
             ];
-        print('chat watch');
         chats.sort((a, b) => a.created.compareTo(b.created));
 
         yield chats;
