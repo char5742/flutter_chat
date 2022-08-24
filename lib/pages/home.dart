@@ -22,7 +22,7 @@ class HomePage extends HookConsumerWidget {
         actions: [
           OutlinedIconButton(
             onPressed: () {
-              context.go('/home/usersearch');
+              context.go('/usersearch');
             },
             icon: Icons.person_add_outlined,
           ),
@@ -64,7 +64,7 @@ class FollowingBox extends HookConsumerWidget {
           onTapCancel: () => tap.value = false,
           onTapDown: (_) => tap.value = true,
           onTapUp: (_) => tap.value = false,
-          onTap: () => context.go('/home/chatroom/${data?.key}'),
+          onTap: () => context.go('/chatroom/${data?.key}'),
           child: Container(
             padding: const EdgeInsets.all(16.0),
             color: tap.value ? Colors.grey.withOpacity(0.2) : null,
