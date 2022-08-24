@@ -17,11 +17,11 @@ void setCookie({
   required String key,
   required String value,
 }) {
-  document.cookie = '$key=$value';
+  const age = 60 * 60 * 24 * 14; // 2週間保存
+  document.cookie = '$key=$value; max-age=$age';
 }
 
 void clearCookie(String key) {
   final then = DateTime.now();
-  const age = 60 * 60 * 24 * 14; // 2週間保存
-  document.cookie = '$key=; expires=$then; max-age=$age';
+  document.cookie = '$key=; expires=$then';
 }
