@@ -22,5 +22,6 @@ void setCookie({
 
 void clearCookie(String key) {
   final then = DateTime.now();
-  document.cookie = '$key=; expires=$then; path=/';
+  const age = 60 * 60 * 24 * 14; // 2週間保存
+  document.cookie = '$key=; expires=$then; max-age=$age';
 }
