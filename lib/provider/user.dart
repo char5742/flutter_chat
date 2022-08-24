@@ -9,12 +9,7 @@ final accountProvider = Provider<Account>((ref) {
   final cookie = getCookie();
   final userKey = cookie['userKey'];
   final accessToken = cookie['accessToken'];
-
-  final name = ref.watch(
-      userProvider(userKey ?? '').select((value) => value.asData?.value?.name));
-
   return Account()
-    ..name = name ?? ''
     ..accessToken = accessToken
     ..key = userKey ?? '';
 });
