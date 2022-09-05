@@ -40,10 +40,14 @@ class UserSearchPage extends HookConsumerWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Text('自分のKEY'),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('自分のKEY: ${ref.watch(accountProvider).key}'),
+                Text(ref.watch(accountProvider).key),
                 OutlinedIconButton(
                   icon: Icons.copy_outlined,
                   color: Colors.grey,
