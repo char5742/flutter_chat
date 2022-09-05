@@ -39,8 +39,9 @@ class App extends HookConsumerWidget {
                 ),
                 GoRoute(
                   path: 'usersearch',
-                  builder: (_, __) {
-                    return const UserSearchPage();
+                  builder: (_, state) {
+                    final userKey = state.queryParams['key'];
+                    return UserSearchPage(defaultKey: userKey);
                   },
                 ),
               ]),
