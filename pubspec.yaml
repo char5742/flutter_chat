@@ -35,3 +35,4 @@ flutter:
 scripts:
   generate: flutter pub run build_runner build --delete-conflicting-outputs
   dev: dhttpd --path build/web/ --port 8080
+  deploy: flutter build web && firebase deploy
