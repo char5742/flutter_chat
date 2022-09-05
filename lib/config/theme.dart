@@ -105,12 +105,14 @@ ThemeData theme = ThemeData(
   disabledColor: const Color(0xFFBFBFBF),
   colorScheme:
       ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFF18D5F2)),
-  inputDecorationTheme: const InputDecorationTheme(
+  inputDecorationTheme: InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey),
+      borderSide: const BorderSide(color: Colors.grey),
+      borderRadius: BorderRadius.circular(20),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF18D5F2)),
+      borderSide: const BorderSide(color: Color(0xFF18D5F2)),
+      borderRadius: BorderRadius.circular(20),
     ),
   ),
 );

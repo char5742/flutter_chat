@@ -13,6 +13,7 @@ class SignUpPage extends HookConsumerWidget {
     final theme = Theme.of(context);
     final controller = useTextEditingController();
     final push = useState(false);
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       body: Column(
         children: [
@@ -25,37 +26,53 @@ class SignUpPage extends HookConsumerWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: TextFormField(
-              controller: controller,
-              style: theme.primaryTextTheme.bodyText1,
+            child: Form(
+              key: formKey,
+              child: TextFormField(
+                controller: controller,
+                validator: (value) => value!.isEmpty ? '名前を入力してください' : null,
+                style: theme.primaryTextTheme.bodyText1,
+              ),
             ),
           ),
-          ElevatedButton(
-              onPressed: () async {
-                if (!push.value) {
-                  push.value = true;
-                  try {
-                    await ref.read(userServiceProvider).signUp(controller.text);
-                  } on OperationException catch (e) {
-                    if (e.linkException != null) {
-                      showOutlinedDialog(
-                        context: context,
-                        text: 'ネットワークに接続できませんでした',
-                      );
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 50,
+              right: 50,
+              top: 30,
+            ),
+            child: ElevatedButton(
+                onPressed: () async {
+                  if (!push.value && formKey.currentState!.validate()) {
+                    push.value = true;
+                    try {
+                      await ref
+                          .read(userServiceProvider)
+                          .signUp(controller.text);
+                    } on OperationException catch (e) {
+                      if (e.linkException != null) {
+                        showOutlinedDialog(
+                          context: context,
+                          text: 'ネットワークに接続できませんでした',
+                        );
+                      }
                     }
+                    push.value = false;
                   }
-                  push.value = false;
-                }
-              },
-              child: Container(
-                width: 150,
-                height: 40,
-                alignment: Alignment.center,
-                child: Text(
-                  '確定',
-                  style: theme.primaryTextTheme.button?.copyWith(fontSize: 24),
-                ),
-              )),
+                },
+                child: Container(
+                  height: 50,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    '確定',
+                    style:
+                        theme.primaryTextTheme.button?.copyWith(fontSize: 24),
+                  ),
+                )),
+          ),
         ],
       ),
     );
