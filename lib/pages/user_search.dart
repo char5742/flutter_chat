@@ -3,17 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat/domain/user.dart';
 import 'package:flutter_chat/pages/component.dart';
 import 'package:flutter_chat/provider/user.dart';
+import 'package:flutter_chat/utils/window.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class UserSearchPage extends HookConsumerWidget {
-  const UserSearchPage({Key? key}) : super(key: key);
+  const UserSearchPage({Key? key, this.defaultKey}) : super(key: key);
+  final String? defaultKey;
 
   @override
   Widget build(context, ref) {
     final theme = Theme.of(context);
-    final keyContriller = useTextEditingController();
+    final keyContriller = useTextEditingController(text: defaultKey);
     final listenableCotroller = useValueListenable(keyContriller);
     final user = useState<User?>(null);
     search() async {
@@ -48,6 +51,27 @@ class UserSearchPage extends HookConsumerWidget {
                     final data =
                         ClipboardData(text: ref.watch(accountProvider).key);
                     await Clipboard.setData(data);
+                  },
+                ),
+                OutlinedIconButton(
+                  icon: Icons.qr_code_2_outlined,
+                  color: Colors.grey,
+                  onPressed: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (context) => Container(
+                        alignment: Alignment.center,
+                        width: 100,
+                        height: 100,
+                        child: QrImage(
+                          data:
+                              '${getLocation()}?key=${ref.watch(accountProvider).key}',
+                          version: QrVersions.auto,
+                          backgroundColor: Colors.white,
+                          size: 200.0,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],
