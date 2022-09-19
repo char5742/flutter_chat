@@ -15,3 +15,5 @@ Then use derry to run a command from the current dart/flutter project.
 ```bash
 derry [script]
 ```
+
+現在Firebase Hostingで公開中 https://app.starrycode.dev/
