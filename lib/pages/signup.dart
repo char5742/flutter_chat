@@ -21,7 +21,7 @@ class SignUpPage extends HookConsumerWidget {
             padding: const EdgeInsets.only(top: 200, bottom: 50),
             child: Text(
               '名前を入力してください',
-              style: theme.primaryTextTheme.headline4,
+              style: theme.textTheme.headline4,
             ),
           ),
           Padding(
@@ -31,7 +31,7 @@ class SignUpPage extends HookConsumerWidget {
               child: TextFormField(
                 controller: controller,
                 validator: (value) => value!.isEmpty ? '名前を入力してください' : null,
-                style: theme.primaryTextTheme.bodyText1,
+                style: theme.textTheme.headline4,
               ),
             ),
           ),
@@ -68,8 +68,7 @@ class SignUpPage extends HookConsumerWidget {
                   ),
                   child: Text(
                     '確定',
-                    style:
-                        theme.primaryTextTheme.button?.copyWith(fontSize: 24),
+                    style: theme.textTheme.button?.copyWith(fontSize: 24),
                   ),
                 )),
           ),

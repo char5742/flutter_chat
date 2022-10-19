@@ -71,7 +71,7 @@ class FollowingBox extends HookConsumerWidget {
             width: double.infinity,
             child: Text(
               data?.name ?? '',
-              style: theme.primaryTextTheme.headline6,
+              style: theme.textTheme.headline6,
             ),
           ),
         ),

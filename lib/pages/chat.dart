@@ -102,7 +102,8 @@ class ChatRoomPage extends HookConsumerWidget {
                               ),
                             ),
                             controller: chatController,
-                            style: theme.primaryTextTheme.bodyText1,
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith(color: Colors.black),
                           ),
                         ),
                       ),
@@ -156,11 +157,10 @@ class ChatBox extends HookConsumerWidget {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: theme.primaryColor)),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Text(chat.data, style: theme.primaryTextTheme.bodyText1),
+        child: Text(chat.data, style: theme.textTheme.bodyText1),
       ),
       const Padding(padding: EdgeInsets.only(left: 5)),
-      Text(formatDateTime(chat.created),
-          style: theme.primaryTextTheme.bodyText2)
+      Text(formatDateTime(chat.created), style: theme.textTheme.bodyText2)
     ];
     return userAsync.when(
       data: (data) {
@@ -171,7 +171,7 @@ class ChatBox extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (!isMe)
-                Text(data?.name ?? '', style: theme.primaryTextTheme.bodyText2),
+                Text(data?.name ?? '', style: theme.textTheme.bodyText2),
               Row(
                 mainAxisAlignment:
                     isMe ? MainAxisAlignment.end : MainAxisAlignment.start,

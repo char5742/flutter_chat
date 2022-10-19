@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat/pages/chat.dart';
 import 'package:flutter_chat/pages/signup.dart';
 import 'package:flutter_chat/pages/user_search.dart';
+import 'package:flutter_chat/provider/settings.dart';
 import 'package:flutter_chat/provider/user.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -55,6 +56,8 @@ class App extends HookConsumerWidget {
 
     return MaterialApp.router(
       theme: theme,
+      darkTheme: darkTheme,
+      themeMode: ref.watch(themeModeProvider),
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,

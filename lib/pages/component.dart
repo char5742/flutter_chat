@@ -55,7 +55,7 @@ Future<void> showOutlinedDialog({
             height: 150,
             child: Text(
               text,
-              style: theme.primaryTextTheme.headline6,
+              style: theme.textTheme.headline6,
             ),
           ),
         );
